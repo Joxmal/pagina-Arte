@@ -3,9 +3,8 @@
   <div class="flex flex-wrap justify-center">
     <div v-for="count in imagesModulo.totalImages" :key="count" class="hover:cursor-pointer    m-2"
       @click="() => (numberSelect = count, showImg(count))">
-
       <img :src="`${imagesModulo.rute}/${String(count).padStart(2, '0')}.jpeg`" alt=""
-        class="h-48 w-48 object-cover rounded-lg shadow-md transition-transform transform hover:scale-105">
+        class="h-32 w-32 object-cover rounded-lg shadow-md transition-transform transform hover:scale-105">
     </div>
     <VueEasyLightbox :visible="visibleRef" :imgs="`${imagesModulo.rute}/${String(numberSelect).padStart(2, '0')}.jpeg`"
       :index="indexRef" @hide="onHide" />
