@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @include font-face( animeAce3, '~/assets/fonts/animeAce3/AnimeAce3BB_Regular', 400, normal, otf);
+@include font-face( animeAce3, '~/assets/fonts/animeAce3/AnimeAce3BB_Bold', 600, medium, otf); */
+
+@font-face {
+  font-family: "animeAce3";
+  src: url("../fonts/animeAce3/AnimeAce3BB_Regular.otf");
+}
+
+@font-face {
+  font-family: "animeAce3_Bold";
+  src: url("../fonts/animeAce3/AnimeAce3BB_Bold.otf");
+}
+
+body{
+  background-color: rgb(247, 241, 241);
+}

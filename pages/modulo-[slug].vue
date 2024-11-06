@@ -1,0 +1,75 @@
+<template>
+  <h1 class="text-3xl font-animeAce3_bold text-center">MODULO {{ params.slug }}</h1>
+  <div class="flex flex-wrap justify-center">
+    <div v-for="count in imagesModulo.totalImages" :key="count" class="hover:cursor-pointer    m-2"
+      @click="() => (numberSelect = count, showImg(count))">
+
+      <img :src="`${imagesModulo.rute}/${String(count).padStart(2, '0')}.jpeg`" alt=""
+        class="h-48 w-48 object-cover rounded-lg shadow-md transition-transform transform hover:scale-105">
+    </div>
+    <VueEasyLightbox :visible="visibleRef" :imgs="`${imagesModulo.rute}/${String(numberSelect).padStart(2, '0')}.jpeg`"
+      :index="indexRef" @hide="onHide" />
+  </div>
+</template>
+
+<script setup lang="ts">
+
+
+
+
+const route = useRoute()
+
+const params = route.params
+
+
+const imgs = [
+  { src: "/images/curso/naruto.jpeg", title: "this naruto" },
+  { src: "/images/curso/naruto.jpeg", title: "this naruto" },
+  { src: "/images/curso/naruto.jpeg", title: "this naruto" },
+];
+const numberSelect = ref(0)
+const imagesModulo = ref({
+  totalImages: 0,
+  rute: '',
+  images: [
+    { src: "/images/curso/naruto.jpeg", title: "this naruto" },
+  ]
+})
+if (params.slug === '1') {
+  console.log(imagesModulo.value)
+  imagesModulo.value.totalImages = 85
+  imagesModulo.value.rute = '/images/modulo/1'
+
+  for (let index = 0; index < imagesModulo.value.totalImages; index++) {
+    imagesModulo.value.images.push(
+      { src: `/images/modulo/1/${String(index).padStart(2, '0')}.jpeg `, title: 'Modulo 1' }
+    )
+
+
+  }
+
+
+} else if (params.slug === '2') {
+  imagesModulo.value.totalImages = 17
+  imagesModulo.value.rute = ''
+  imagesModulo.value.rute = '/images/modulo/2'
+} else if (params.slug === 'Halloween') {
+  imagesModulo.value.totalImages = 8
+  imagesModulo.value.rute = ''
+  imagesModulo.value.rute = '/images/especiales/Halloween'
+}
+
+//------
+
+const visibleRef = ref(false);
+const indexRef = ref(0);
+
+
+
+const showImg = (index: any) => {
+  indexRef.value = index;
+  visibleRef.value = true;
+};
+const onHide = () => (visibleRef.value = false);
+
+</script>
