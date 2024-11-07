@@ -1,7 +1,4 @@
 <template>
-  <pre>
-    {{ imagesModulo }}
-  </pre>
   <h1 class="text-3xl font-animeAce3_bold text-center">MODULO {{ params.slug }}</h1>
   <div class="flex flex-wrap justify-center">
     <div v-for="count in imagesModulo.totalImages" :key="count" class="hover:cursor-pointer    m-2"
