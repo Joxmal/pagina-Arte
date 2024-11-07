@@ -1,13 +1,15 @@
 <template>
+  <pre>
+    {{ imagesModulo }}
+  </pre>
   <h1 class="text-3xl font-animeAce3_bold text-center">MODULO {{ params.slug }}</h1>
   <div class="flex flex-wrap justify-center">
     <div v-for="count in imagesModulo.totalImages" :key="count" class="hover:cursor-pointer    m-2"
-      @click="() => (numberSelect = count, showImg(count))">
+      @click="() => (numberSelect = count - 1, showImg(count - 1))">
       <img :src="`${imagesModulo.rute}/${String(count).padStart(2, '0')}.jpeg`" alt=""
         class="h-32 w-32 object-cover rounded-lg shadow-md transition-transform transform hover:scale-105">
     </div>
-    <VueEasyLightbox :visible="visibleRef" :imgs="`${imagesModulo.rute}/${String(numberSelect).padStart(2, '0')}.jpeg`"
-      :index="indexRef" @hide="onHide" />
+    <VueEasyLightbox :visible="visibleRef" :imgs="imagesModulo.images" :index="indexRef" @hide="onHide" />
   </div>
 </template>
 
@@ -21,6 +23,11 @@ const route = useRoute()
 const params = route.params
 
 
+interface images {
+  src: string,
+  title: string
+}
+
 const imgs = [
   { src: "/images/curso/naruto.jpeg", title: "this naruto" },
   { src: "/images/curso/naruto.jpeg", title: "this naruto" },
@@ -31,20 +38,18 @@ const imagesModulo = ref({
   totalImages: 0,
   rute: '',
   images: [
-    { src: "/images/curso/naruto.jpeg", title: "this naruto" },
-  ]
+
+  ] as images[]
 })
 if (params.slug === '1') {
   console.log(imagesModulo.value)
   imagesModulo.value.totalImages = 85
   imagesModulo.value.rute = '/images/modulo/1'
 
-  for (let index = 0; index < imagesModulo.value.totalImages; index++) {
+  for (let index = 1; index <= imagesModulo.value.totalImages; index++) {
     imagesModulo.value.images.push(
-      { src: `/images/modulo/1/${String(index).padStart(2, '0')}.jpeg `, title: 'Modulo 1' }
+      { src: `${imagesModulo.value.rute}/${String(index).padStart(2, '0')}.jpeg `, title: 'Modulo 1' }
     )
-
-
   }
 
 
@@ -52,10 +57,23 @@ if (params.slug === '1') {
   imagesModulo.value.totalImages = 17
   imagesModulo.value.rute = ''
   imagesModulo.value.rute = '/images/modulo/2'
+
+  for (let index = 1; index <= imagesModulo.value.totalImages; index++) {
+    imagesModulo.value.images.push(
+      { src: `${imagesModulo.value.rute}/${String(index).padStart(2, '0')}.jpeg `, title: 'Modulo 2' }
+    )
+  }
+
 } else if (params.slug === 'Halloween') {
   imagesModulo.value.totalImages = 8
   imagesModulo.value.rute = ''
   imagesModulo.value.rute = '/images/especiales/Halloween'
+
+  for (let index = 1; index <= imagesModulo.value.totalImages; index++) {
+    imagesModulo.value.images.push(
+      { src: `${imagesModulo.value.rute}/${String(index).padStart(2, '0')}.jpeg `, title: 'Modulo Halloween' }
+    )
+  }
 }
 
 //------
