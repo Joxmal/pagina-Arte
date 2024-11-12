@@ -4,7 +4,7 @@
   <nav class="sticky bg-white dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl  flex flex-wrap items-center relative justify-center mx-auto p-1">
       <div class="flex relative md:absolute  left-0 items-center space-x-3 rtl:space-x-reverse">
-        <img src="/assets/icons/goku.png" class="h-8" alt="Flowbite Logo">
+        <img src="/assets/icons/gojo.png" class="h-8" alt="Flowbite Logo">
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Curso Dibujo Anime</span>
       </div>
       <div class="  items-center justify-between  w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
