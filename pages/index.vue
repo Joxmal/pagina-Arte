@@ -22,6 +22,10 @@ const canvas = ref(null);
 const particles = [];
 const particleCount = 80;
 
+definePageMeta({
+  layout: false
+})
+
 onMounted(() => {
   const ctx = canvas.value.getContext('2d');
   let width, height;

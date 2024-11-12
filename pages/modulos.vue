@@ -1,6 +1,5 @@
 <template>
   <div class="px-4 py-4 font-animeAce">
-
     <h1 class="text-3xl font-animeAce3_bold mb-10 text-center">PROGRESO</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
       <NuxtLink :to="`modulo-${index + 1}`" v-for="(modulo, index) in progreso" :key="index">
@@ -21,6 +20,10 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: "Módulos del Curso",
+})
+
 
 const progreso = [
   {

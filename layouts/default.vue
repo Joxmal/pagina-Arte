@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-gray-200">
+  <div class="font-animeAce3">
+    <NavbarBasic />
     <slot />
   </div>
 </template>

@@ -14,7 +14,6 @@
 
 
 
-
 const route = useRoute()
 
 const params = route.params
@@ -51,7 +50,7 @@ if (params.slug === '1') {
 
 
 } else if (params.slug === '2') {
-  imagesModulo.value.totalImages = 17
+  imagesModulo.value.totalImages = 53
   imagesModulo.value.rute = ''
   imagesModulo.value.rute = '/images/modulo/2'
 
