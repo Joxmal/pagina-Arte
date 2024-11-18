@@ -10,7 +10,13 @@
       <div class="text-xl font-bold py-1">
         {{ quiz?.quiz.question }}
       </div>
-      <div class="relative w-60 h-40 md:size-96 ">
+      <div v-if="!disabledButton" class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
+        <ImgAleatorio>
+
+        </ImgAleatorio>
+      </div>
+
+      <div v-else class="relative w-60 h-40 md:size-96 ">
         <img class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
         <div v-if="!disabledButton" class="absolute inset-0 bg-black opacity-100"></div>
       </div>
