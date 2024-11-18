@@ -87,7 +87,7 @@ export const ListAnimeGeneral = {
 			answer: "My Hero Academia",
 		},
 		{
-			image: "5.webp",
+			image: "4.webp",
 			question: "¿En qué anime se encuentra el personaje 'Edward Elric'?",
 			options: ["Naruto", "Fullmetal Alchemist", "Bleach", "One Punch Man"],
 			answer: "Fullmetal Alchemist",
