@@ -1,5 +1,4 @@
 <template>
-
   {{ numeroActualQuiz }}/23
 
   <div v-if="!finalizado">
@@ -7,12 +6,15 @@
       <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: progressPercentage + '%' }"></div>
     </div>
 
-
-
     <div class="flex px-2 text-center flex-col justify-center content-center items-center ">
-      <div class="text-2xl font-bold py-4">
+      <div class="text-xl font-bold py-1">
         {{ quiz?.quiz.question }}
       </div>
+      <div class="relative w-60 h-40 md:size-96 ">
+        <img class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
+        <div v-if="!disabledButton" class="absolute inset-0 bg-black opacity-100"></div>
+      </div>
+
       <div class="flex flex-wrap  ">
         <ButtonGreenToBlue @click="responderQuiz(index)" class="m-2 text-lg  w-1/3 flex-auto  "
           v-for="(option, index) in quiz?.quiz.options" :title="option" :key="option" :disabled="disabledButton" />
@@ -22,17 +24,20 @@
       </div>
     </div>
 
-    <div class="flex justify-center items-center transition-all ease-in-out  hover:scale-110">
-      <button :disabled="finalizado" @click="obtenerQuiz" class=" border-black p-2 rounded-xl border-2  mt-6 ">
+    <div class="flex justify-center items-center transition-all ease-in-out  hover:text-green-800">
+      <button v-if="!loadingButton" :disabled="finalizado" @click="obtenerQuiz"
+        class=" border-black p-2 rounded-xl border-2  mt-6   ">
         NUEVO QUIZ
         <Icon name="mdi:arrow-right" />
       </button>
+
+      <Icon v-else name="eos-icons:loading" size="40"></Icon>
     </div>
   </div>
 
   <div v-else class="text-4xl text-center">
     <div class="mb-10">
-      <img src="/images/quiz/2.gif" class="mx-auto rounded-lg">
+      <img :src="gifQuizFinal" class="mx-auto rounded-lg">
       {{ puntos }} Puntos
     </div>
 
@@ -49,6 +54,7 @@ export interface Quiz {
 }
 
 export interface QuizClass {
+  image: string;
   question: string;
   options: string[];
   answer: string;
@@ -70,6 +76,21 @@ const respuestasIncorrectas = ref([]) as Ref<number[]>
 const finalizado = ref(false)
 
 const puntos = ref(0)
+
+const gifQuizFinal = computed(() => {
+
+  if (quiz.value)
+    if (puntos.value <= 70) {
+      return '/images/quiz/gif1.webp'
+    } else if (puntos.value > 70) {
+      return '/images/quiz/2.gif'
+    } else if (puntos.value === quiz.value?.totalQuiz * 10) {
+      return '/images/quiz/3.gif'
+    }
+
+})
+
+
 
 
 function reiniciarGame() {
@@ -140,7 +161,11 @@ export interface Quiz {
   answer: string;
 }
 
+
+const loadingButton = ref(false)
 async function responderQuiz(option: number) {
+
+  loadingButton.value = true
 
   const response = await $fetch<ResponseQuiz>('/api/anime/responseQuizAnime', {
     method: 'POST',
@@ -151,7 +176,7 @@ async function responderQuiz(option: number) {
   })
 
 
-
+  loadingButton.value = false
 
   if (response.correcto === true && quiz.value) {
 
@@ -179,6 +204,8 @@ async function responderQuiz(option: number) {
     calcularPuntos()
     return
   }
+
+
 }
 
 
