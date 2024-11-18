@@ -1,9 +1,17 @@
 <template>
+  <ClientOnly>
+    <Analytics />
+  </ClientOnly>
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+
+
+
 </template>
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/nuxt'
+
 
 useSeoMeta({
   ogImage: '/goku.png',
