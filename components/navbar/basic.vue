@@ -37,7 +37,10 @@
       </div>
     </div>
   </nav>
-  <Analytics />
+
+  <ClientOnly>
+    <Analytics />
+  </ClientOnly>
 </template>
 
 
