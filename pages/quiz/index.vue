@@ -1,0 +1,20 @@
+<template>
+  <h1 class="text-2xl text-center mb-4">
+    selección de quiz
+  </h1>
+
+
+  <ClientOnly>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+      <NuxtLink :to="{ name: 'quiz-aleatorio' }">
+        <CardQuiz title="Aleatorio" description="NO sabes Que Saldrá!!!!" src="/images/quiz/2.gif">
+        </CardQuiz>
+      </NuxtLink>
+    </div>
+  </ClientOnly>
+
+  <div>
+
+
+  </div>
+</template>

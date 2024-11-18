@@ -1,11 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	// routeRules: {
-	// 	"/**": {
-	// 		ssr: false,
-	// 	},
-	// 	"/": { static: true },
-	// },
+	routeRules: {
+		"/": { static: true },
+		"/modulo": {
+			isr: true,
+			static: true,
+		},
+		"/quiz/**": { ssr: false },
+	},
 
 	// ssr: false,
 	// nitro: {
@@ -27,6 +29,12 @@ export default defineNuxtConfig({
 		"@nuxt/icon",
 		"@nuxt/image",
 		"nuxt-easy-lightbox",
+		[
+			"@pinia/nuxt",
+			{
+				autoImports: ["defineStore", "acceptHMRUpdate"],
+			},
+		],
 	],
 	tailwindcss: {
 		cssPath: ["./assets/css/tailwind.css", { injectPosition: "first" }],

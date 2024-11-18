@@ -1,6 +1,8 @@
 <template>
   <div class="font-animeAce3">
     <NavbarBasic />
-    <slot />
+    <div class="px-4">
+      <slot />
+    </div>
   </div>
 </template>

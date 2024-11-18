@@ -1,8 +1,6 @@
 <template>
   <div>
     <div class="h-screen  bg-black z-50 relative overflow-hidden">
-
-
       <canvas class="absolute -z-50 top-0 left-0 w-full h-full" ref="canvas"></canvas>
       <h1 class="welcome-text font-animeAce3_bold text-white z-50">{{ title }}</h1>
       <div class="text-center mt-8">
