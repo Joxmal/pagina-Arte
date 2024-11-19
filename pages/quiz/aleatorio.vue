@@ -10,16 +10,15 @@
       <div class="text-xl font-bold py-1">
         {{ quiz?.quiz.question }}
       </div>
-      <div v-if="!disabledButton" class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
-        <ImgAleatorio>
 
-        </ImgAleatorio>
+
+      <div ref="container" class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
+        <ImgAleatorio v-if="!disabledButton" />
+
+        <img v-else class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
+
       </div>
 
-      <div v-else class="relative w-60 h-40 md:size-96 ">
-        <img class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
-        <div v-if="!disabledButton" class="absolute inset-0 bg-black opacity-100"></div>
-      </div>
 
       <div class="flex flex-wrap  ">
         <ButtonGreenToBlue @click="responderQuiz(index)" class="m-2 text-lg  w-1/3 flex-auto  "
@@ -52,6 +51,12 @@
 </template>
 
 <script setup lang="ts">
+
+// parallax
+const container = ref(null)
+const { tilt, roll, source } = useParallax(container)
+
+//------
 
 export interface Quiz {
   totalQuiz: number

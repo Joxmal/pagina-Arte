@@ -7,11 +7,16 @@
   <ClientOnly>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
       <NuxtLink :to="{ name: 'quiz-aleatorio' }">
-        <CardQuiz title="Aleatorio" description="NO sabes Que Saldrá!!!!" src="/images/quiz/2.gif">
-        </CardQuiz>
+        <TestParallax title="Aleatorio" description="NO sabes Que Saldrá!!!!" src="/images/quiz/2.gif" />
       </NuxtLink>
+
+
+
     </div>
+
+
   </ClientOnly>
+
 
   <div>
 

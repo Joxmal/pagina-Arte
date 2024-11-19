@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="relative w-full h-full">
     <div class="absolute inset-0 flex items-center justify-center">
 
@@ -9,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 
 const images = [
   '/images/quiz/1.webp',
@@ -39,21 +40,6 @@ const getRandomImage = () => {
 
 onMounted(() => {
   getRandomImage(); // Cargar una imagen aleatoria al montar el componente
-  setInterval(getRandomImage, 200); // Cambiar la imagen cada 3 segundos
+  setInterval(getRandomImage, 600); // Cambiar la imagen cada 3 segundos
 });
 </script>
-
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active en <2.1.8 */
-  {
-  opacity: 0;
-}
-</style>

@@ -5,9 +5,6 @@
 
     <h1 class="text-4xl text-center font-bold">{{ props.title }}</h1>
 
-    <div class="flex flex-wrap justify-between mt-4 ">
-
-    </div>
     <div>
       {{ props.description }}
     </div>
