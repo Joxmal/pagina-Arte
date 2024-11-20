@@ -40,11 +40,23 @@
     </div>
   </div>
 
-  <div v-else class="text-4xl text-center">
+  <div v-else class="text-4xl text-center  flex flex-col items-center ">
     <div class="mb-10">
       <img :src="gifQuizFinal" class="mx-auto rounded-lg">
       {{ puntos }} Puntos
     </div>
+
+    <div class="w-full text-xl mt-4 mb-6  max-w-96 ">
+      <form action="" @submit.prevent="guardar" class="flex flex-col">
+        <label class="flex  flex-col">Quieres Guardar ???
+          <input class="border text-center border-black rounded-md " type="text" v-model="nombre">
+        </label>
+        <button type="submit" class="w-fit mx-auto">
+          <Icon size="40" class="hover:bg-green-600 rounded-full" name="mdi-content-save" />
+        </button>
+      </form>
+    </div>
+
 
     <ButtonGreenToBlue @click="reiniciarGame" title="REINICIAR" />
   </div>
@@ -57,6 +69,9 @@ const container = ref(null)
 const { tilt, roll, source } = useParallax(container)
 
 //------
+
+
+
 
 export interface Quiz {
   totalQuiz: number
@@ -219,6 +234,21 @@ async function responderQuiz(option: number) {
 
 }
 
+// guardar
 
+
+const nombre = ref('')
+
+async function guardar() {
+  const dataTwice = await $fetch<Quiz>('/api/anime/score', {
+    method: 'POST',
+    body: {
+      score: puntos.value,
+      nombre: nombre.value
+    }
+  })
+
+  reiniciarGame()
+}
 
 </script>

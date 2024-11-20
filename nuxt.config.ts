@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+	supabase: {
+		redirect: false,
+	},
+
 	routeRules: {
 		"/": { static: true },
 		"/modulo": {
@@ -36,6 +40,7 @@ export default defineNuxtConfig({
 				autoImports: ["defineStore", "acceptHMRUpdate"],
 			},
 		],
+		"@nuxtjs/supabase",
 	],
 	tailwindcss: {
 		cssPath: ["./assets/css/tailwind.css", { injectPosition: "first" }],
