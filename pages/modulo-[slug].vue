@@ -50,7 +50,7 @@ if (params.slug === '1') {
 
 
 } else if (params.slug === '2') {
-  imagesModulo.value.totalImages = 53
+  imagesModulo.value.totalImages = 86
   imagesModulo.value.rute = ''
   imagesModulo.value.rute = '/images/modulo/2'
 
