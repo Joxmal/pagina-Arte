@@ -3,7 +3,9 @@ import { serverSupabaseServiceRole } from "#supabase/server";
 export default defineEventHandler(async (event) => {
 	const client = serverSupabaseServiceRole(event);
 
-	let { data: scoreQuiz, error } = await client.from("scoreQuiz").select("*");
+	let { data: scoreQuiz, error } = await client.from("scoreQuiz").select("*").order('score',{
+		ascending:false
+	})
 
 	const { data } = await client.from("scoreQuiz").select("*");
 

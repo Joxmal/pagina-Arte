@@ -2,7 +2,7 @@
   {{ numeroActualQuiz }}/23
 
   <div v-if="!finalizado">
-    <div v-if="quiz?.quiz" class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+    <div v-if="quiz?.quiz" class="w-full bg-gray-200 rounded-full h-2.5">
       <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: progressPercentage + '%' }"></div>
     </div>
 
@@ -60,6 +60,36 @@
 
     <ButtonGreenToBlue @click="reiniciarGame" title="REINICIAR" />
   </div>
+
+  <hr class="h-[2px] w-[90%] rounded mx-auto my-20 border-0 bg-gray-700">
+  <h2 class="text-center">PUNTUACIÓN</h2>
+  <div class="relative overflow-x-auto shadow-md rounded-lg md:w-full mx-auto w-[90%]">
+    <table class="w-full text-sm text-left rtl:text-right text-blue-100 ">
+      <thead class="text-xs text-white uppercase bg-blue-600 ">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            NOMBRES
+          </th>
+          <th scope="col" class="px-6 py-3">
+            PUNTOS
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(score, index) in score?.sensitiveData" :key="index" class=" border-b border-blue-400 text-black">
+          <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
+            {{ score.nombre }}
+          </th>
+          <td class="px-6 py-4">
+            {{ score.score }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
 </template>
 
 <script setup lang="ts">
@@ -68,10 +98,31 @@
 const container = ref(null)
 const { tilt, roll, source } = useParallax(container)
 
+
+
+
+export interface Score {
+  sensitiveData: SensitiveDatum[];
+}
+
+export interface SensitiveDatum {
+  id: number;
+  created_at: Date;
+  nombre: string;
+  score: number;
+}
+
+//obtener score
+const score = ref<Score>()
+async function obtenerScore() {
+  const data = await $fetch<Score>('/api/anime/score', {
+    method: 'GET',
+  })
+  score.value = data
+
+}
+
 //------
-
-
-
 
 export interface Quiz {
   totalQuiz: number
@@ -134,6 +185,7 @@ function reiniciarGame() {
 
 onMounted(async () => {
   await obtenerQuiz()
+  obtenerScore()
 })
 
 const progressPercentage = computed(() => {
@@ -247,7 +299,7 @@ async function guardar() {
       nombre: nombre.value
     }
   })
-
+  obtenerScore()
   reiniciarGame()
 }
 

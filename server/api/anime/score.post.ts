@@ -1,8 +1,8 @@
 import { serverSupabaseServiceRole } from "#supabase/server";
 
 interface Body {
-	nombre: string;
-	score: number;
+	nombre?: string;
+	score?: number;
 }
 
 interface ScoreQuiz {
@@ -12,7 +12,7 @@ interface ScoreQuiz {
 
 export default defineEventHandler(async (event) => {
 	const body: Body = await readBody(event);
-	const { nombre = 'jose', score= 60 } = body;
+	const { nombre = 'jose2', score= 500 } = body;
 
 	const client = serverSupabaseServiceRole(event);
 
