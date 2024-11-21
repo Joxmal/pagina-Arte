@@ -18,8 +18,16 @@
   </ClientOnly>
 
 
-  <div>
-
-
-  </div>
 </template>
+
+<script setup lang="ts">
+
+function alerta(valor: any) {
+  console.log(valor)
+  alert('se termino el contador')
+}
+const initContador = ref(0)
+
+
+
+</script>

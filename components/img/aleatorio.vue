@@ -40,6 +40,6 @@ const getRandomImage = () => {
 
 onMounted(() => {
   getRandomImage(); // Cargar una imagen aleatoria al montar el componente
-  setInterval(getRandomImage, 600); // Cambiar la imagen cada 3 segundos
+  setInterval(getRandomImage, 1000); // Cambiar la imagen cada 3 segundos
 });
 </script>

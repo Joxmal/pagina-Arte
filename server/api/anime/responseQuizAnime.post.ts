@@ -2,7 +2,7 @@ import { ListAnimeGeneral } from "~/server/data/anime/questions";
 
 interface Body {
 	quizNumber: number;
-	quizResponse: number;
+	quizResponse: string;
 }
 
 export default defineEventHandler(async (event) => {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
 	const quiz = ListAnimeGeneral.quiz[quizNumber];
 
-	const respuestaSeleccionada = quiz.options[quizResponse];
+	const respuestaSeleccionada = quizResponse;
 	const respuestaCorrecta = quiz.answer;
 
 	const correcto = respuestaSeleccionada === respuestaCorrecta;
