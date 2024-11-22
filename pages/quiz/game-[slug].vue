@@ -1,5 +1,4 @@
 <template>
-
   <div v-if="!showQuiz" class="text-[200px] w-full h-full flex justify-center">
     <ContadorBasic @success-count="revelar" :iniciarContador="initContador" />
   </div>
@@ -18,7 +17,7 @@
         </div>
 
 
-        <div ref="container" class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
+        <div class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
           <ImgAleatorio v-if="!disabledButton" />
 
           <img v-else class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
@@ -103,6 +102,21 @@
 </template>
 
 <script setup lang="ts">
+// extraer parametros
+
+const { slug = 'easy' }: { slug?: string } = useRoute().params
+
+const mode = ref('easy')
+
+const modeMap: Record<string, string> = {
+  easy: 'easy',
+  hardcore: 'hardcore'
+}
+
+mode.value = modeMap[slug]
+
+
+
 
 //revelar
 const showQuiz = ref(false)
@@ -124,14 +138,6 @@ const shuffledOptions = computed(() => {
   if (quiz.value)
     return shuffleArray([...quiz.value?.quiz.options])
 });
-
-// parallax
-const container = ref(null)
-const { tilt, roll, source } = useParallax(container)
-
-
-
-
 export interface Score {
   sensitiveData: SensitiveDatum[];
 }
@@ -148,6 +154,9 @@ const score = ref<Score>()
 async function obtenerScore() {
   const data = await $fetch<Score>('/api/anime/score', {
     method: 'GET',
+    query: {
+      mode: mode.value
+    }
   })
   score.value = data
 
@@ -253,7 +262,8 @@ async function obtenerQuiz() {
     const dataTwice = await $fetch<Quiz>('/api/anime/quizAnime', {
       method: 'GET',
       params: {
-        responses: [quizRespondidos.value]
+        responses: [quizRespondidos.value],
+        mode: mode.value
       }
     })
 
@@ -291,7 +301,8 @@ async function responderQuiz(option: string) {
     method: 'POST',
     body: {
       quizNumber: quiz.value?.numeroQuiz,
-      quizResponse: option
+      quizResponse: option,
+      mode: mode.value
     }
   })
 
@@ -338,7 +349,8 @@ async function guardar() {
     method: 'POST',
     body: {
       score: puntos.value,
-      nombre: nombre.value
+      nombre: nombre.value,
+      mode: mode.value
     }
   })
   obtenerScore()

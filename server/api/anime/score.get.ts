@@ -1,9 +1,12 @@
 import { serverSupabaseServiceRole } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
+
+	let { mode= 'easy' }:{mode:string} = getQuery(event);
+
 	const client = serverSupabaseServiceRole(event);
 
-	let { data: scoreQuiz, error } = await client.from("scoreQuiz").select("*").order('score',{
+	let { data: scoreQuiz, error } = await client.from("scoreQuiz").select().eq('dificultad',mode).order('score',{
 		ascending:false
 	})
 

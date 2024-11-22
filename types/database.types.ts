@@ -12,6 +12,30 @@ export type Database = {
       scoreQuiz: {
         Row: {
           created_at: string
+          dificultad: string
+          id: number
+          nombre: string | null
+          score: number | null
+        }
+        Insert: {
+          created_at?: string
+          dificultad?: string
+          id?: number
+          nombre?: string | null
+          score?: number | null
+        }
+        Update: {
+          created_at?: string
+          dificultad?: string
+          id?: number
+          nombre?: string | null
+          score?: number | null
+        }
+        Relationships: []
+      }
+      "scoreQuiz-hardcore": {
+        Row: {
+          created_at: string
           id: number
           nombre: string | null
           score: number | null

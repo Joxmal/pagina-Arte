@@ -28,7 +28,7 @@
             </NuxtLink>
           </li>
           <li>
-            <NuxtLink active-class="bg-blue-700 md:text-blue-700" :to="{ name: 'quiz' }"
+            <NuxtLink active-class="bg-blue-700 md:text-blue-700" :to="{ name: 'quiz-seleccion' }"
               class="block py-2 ease-out duration-1000  px-3 text-white rounded md:bg-transparent  md:p-0 ">
               Quiz
             </NuxtLink>

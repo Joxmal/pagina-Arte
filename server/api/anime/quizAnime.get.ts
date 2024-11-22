@@ -1,9 +1,25 @@
 import useNumAleario from "~/composables/useNumAleario";
-import { ListAnimeGeneral } from "~/server/data/anime/questions";
+import { ListAnimeGeneral,ListAnimeGeneral_hardcore } from "~/server/data/anime/questions";
 
 export default defineEventHandler(async (event) => {
 	// Acceder a los parámetros de consulta (query parameters)
-	let { responses } = getQuery(event);
+	let { responses,mode='easy' } = getQuery(event);
+
+	let quizList: typeof ListAnimeGeneral
+
+
+
+	switch (mode) {
+		case "easy":
+			quizList = ListAnimeGeneral
+			break;
+		case "hardcore":
+			quizList = ListAnimeGeneral_hardcore
+			break
+		default:
+			quizList = ListAnimeGeneral
+			break;
+	}
 
 	let responsesArray: number[] = [];
 
@@ -17,12 +33,13 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
-	const numeroTotalQuiz = ListAnimeGeneral.quiz.length - 1;
+	const numeroTotalQuiz = quizList.quiz.length - 1;
 	const nuevoQuiz = useNumAleario(0, numeroTotalQuiz, responsesArray);
 
 	return {
 		totalQuiz: numeroTotalQuiz,
 		numeroQuiz: nuevoQuiz,
-		quiz: ListAnimeGeneral.quiz[nuevoQuiz],
+		dificultad:mode,
+		quiz: quizList.quiz[nuevoQuiz],
 	};
 });
