@@ -16,6 +16,7 @@ export type Database = {
           id: number
           nombre: string | null
           score: number | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -23,6 +24,7 @@ export type Database = {
           id?: number
           nombre?: string | null
           score?: number | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -30,39 +32,81 @@ export type Database = {
           id?: number
           nombre?: string | null
           score?: number | null
-        }
-        Relationships: []
-      }
-      "scoreQuiz-hardcore": {
-        Row: {
-          created_at: string
-          id: number
-          nombre: string | null
-          score: number | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          nombre?: string | null
-          score?: number | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          nombre?: string | null
-          score?: number | null
+          user_id?: string | null
         }
         Relationships: []
       }
     }
     Views: {
-      [_ in never]: never
+      score_easy_view: {
+        Row: {
+          id: number | null
+          nombre: string | null
+          score: number | null
+        }
+        Insert: {
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+        }
+        Update: {
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+        }
+        Relationships: []
+      }
+      score_easy_view_testing: {
+        Row: {
+          created_at: string | null
+          dificultad: string | null
+          id: number | null
+          nombre: string | null
+          score: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          dificultad?: string | null
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          dificultad?: string | null
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      score_hardcore_view: {
+        Row: {
+          id: number | null
+          nombre: string | null
+          score: number | null
+        }
+        Insert: {
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+        }
+        Update: {
+          id?: number | null
+          nombre?: string | null
+          score?: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      dificultad: "easy" | "medium" | "hardcore"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -11,7 +11,7 @@
         <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: progressPercentage + '%' }"></div>
       </div>
 
-      <div class="flex px-2 text-center flex-col justify-center content-center items-center ">
+      <div class="flex px-2 min-h-20 text-center flex-col justify-center content-center items-center ">
         <div class="text-xl font-bold py-1">
           {{ quiz?.quiz.question }}
         </div>
@@ -21,9 +21,10 @@
           typeMessageQuiz && messageQuiz.length > 0 ? 'shadow-green-600' : '',
           !typeMessageQuiz && messageQuiz.length > 0 ? 'shadow-red-600' : '',
         ]" class="my-2 relative w-60 h-40 md:size-96 rounded-lg overflow-auto shadow-2xl ">
-          <ImgAleatorio v-if="!disabledButton" />
 
-          <img v-else class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
+
+          <img @dragstart.prevent :class="messageQuiz.length === 0 ? 'brightness-0 ' : ''"
+            class="rounded-lg w-full h-full object-fill select-none " :src="'/images/quiz/' + quiz?.quiz.image">
 
         </div>
 
@@ -300,6 +301,7 @@ export interface Quiz {
 
 const loadingButton = ref(false)
 const quizSelected = ref('')
+const responseQuiz = ref<ResponseQuiz>()
 async function responderQuiz(option: string) {
 
   quizSelected.value = option
@@ -315,6 +317,7 @@ async function responderQuiz(option: string) {
     }
   })
 
+  responseQuiz.value = response
 
   loadingButton.value = false
 
