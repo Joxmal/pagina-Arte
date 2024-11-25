@@ -17,7 +17,10 @@
         </div>
 
 
-        <div class="relative w-60 h-40 md:size-96 rounded-lg overflow-auto">
+        <div :class="[
+          typeMessageQuiz && messageQuiz.length > 0 ? 'shadow-green-600' : '',
+          !typeMessageQuiz && messageQuiz.length > 0 ? 'shadow-red-600' : '',
+        ]" class="my-2 relative w-60 h-40 md:size-96 rounded-lg overflow-auto shadow-2xl ">
           <ImgAleatorio v-if="!disabledButton" />
 
           <img v-else class="rounded-lg w-full h-full object-cover " :src="'/images/quiz/' + quiz?.quiz.image">
@@ -26,23 +29,23 @@
 
 
         <div class="flex flex-wrap  ">
-          <ButtonGreenToBlue @click="responderQuiz(option)" class="m-2 text-lg  w-1/3 flex-auto  "
-            v-for="(option, index) in shuffledOptions" :title="option" :key="index" :disabled="disabledButton" />
+          <ButtonGreenToBlue @click="responderQuiz(option)" :class="[
+            quiz?.quiz.answer === option && messageQuiz.length > 0 ? 'from-transparent to-green-700' : '',
+            quiz?.quiz.answer !== option && messageQuiz.length > 0 ? 'from-transparent to-red-600' : '',
+          ]" class="m-2 text-lg  w-1/3 flex-auto  " v-for="(option, index) in shuffledOptions" :title="option"
+            :key="index" :disabled="disabledButton" />
 
-        </div>
-        <div v-if="messageQuiz.length > 0" :class="typeMessageQuiz ? 'text-green-800' : 'text-red-800'">
-          {{ messageQuiz }}
         </div>
       </div>
 
       <div class="flex justify-center items-center transition-all ease-in-out  hover:text-green-800">
-        <button v-if="!loadingButton" :disabled="finalizado" @click="obtenerQuiz"
-          class=" border-black p-2 rounded-xl border-2  mt-6   ">
+        <button :disabled="loadingButton" @click="obtenerQuiz" class=" border-black p-2 rounded-xl border-2  mt-6   ">
           NUEVO QUIZ
-          <Icon name="mdi:arrow-right" />
+          <Icon v-if="!loadingButton" name="mdi:arrow-right" />
+          <Icon v-else name="eos-icons:loading" size="20"></Icon>
+
         </button>
 
-        <Icon v-else name="eos-icons:loading" size="40"></Icon>
       </div>
     </div>
 
@@ -57,14 +60,17 @@
           <label class="flex  flex-col">Quieres Guardar ???
             <input class="border text-center border-black rounded-md " type="text" v-model="nombre">
           </label>
-          <button type="submit" class="w-fit mx-auto">
-            <Icon size="40" class="hover:bg-green-600 rounded-full" name="mdi-content-save" />
+          <button type="submit"
+            class="w-fit mx-auto flex justify-center items-center hover:text-green-600 border border-black  rounded-lg mt-2">
+            GUARDAR
+            <Icon size="40" class=" rounded-full" name="mdi-content-save" />
           </button>
         </form>
       </div>
 
 
-      <ButtonGreenToBlue @click="reiniciarGame" title="REINICIAR" />
+
+      <!--  <ButtonGreenToBlue @click="reiniciarGame" title="REINICIAR" /> -->
     </div>
 
     <hr class="h-[2px] w-[90%] rounded mx-auto my-20 border-0 bg-gray-700">
@@ -293,7 +299,10 @@ export interface Quiz {
 
 
 const loadingButton = ref(false)
+const quizSelected = ref('')
 async function responderQuiz(option: string) {
+
+  quizSelected.value = option
 
   loadingButton.value = true
 
